@@ -49,6 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?android:attr/actionBarSize"
                     app:layout_collapseMode="pin"
+
                     app:popupTheme="@style/AppTheme.PopupOverlay">
 
                     <com.example.wzp109761.addressbook.widget.CircleImageView
@@ -69,7 +70,9 @@
                 </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
-
+        <include
+            android:id="@+id/include2"
+            layout="@layout/content_user_data" />
 
         <com.example.wzp109761.addressbook.widget.CircleImageView
             android:id="@+id/user_head"

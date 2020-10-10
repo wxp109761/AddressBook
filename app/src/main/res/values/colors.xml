@@ -15,6 +15,9 @@
     <color name="_a5a9aa">#a5a9aa</color>
     <color name="_2e3135">#2e3135</color>
     <color name="_333333">#333333</color>
+    <color name="black_semi">#3B3B3B</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="colorDivider">#E9E9E9</color>
 
     <color name="white">#ffffff</color>
 </resources>

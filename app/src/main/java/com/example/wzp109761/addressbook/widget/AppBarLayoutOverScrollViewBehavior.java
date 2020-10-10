@@ -118,6 +118,7 @@ public class AppBarLayoutOverScrollViewBehavior extends AppBarLayout.Behavior {
         mParentHeight = abl.getHeight();
         mTargetViewHeight = mTargetView.getHeight();
         mMiddleHeight = middleLayout.getHeight();
+
     }
 
     private void scale(AppBarLayout abl, View target, int dy) {

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class PreUtils {
-    private static String pre_name = "user_info";
+    private static String pre_name = "fragment_userinfo";
     private static Context mContext;
 
     public PreUtils(Context context) {
