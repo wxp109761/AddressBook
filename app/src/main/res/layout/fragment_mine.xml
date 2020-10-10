@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/user_app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="332dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:layout_behavior="@string/appbar_overscroll_behavior">
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/toolbar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:contentScrim="@color/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="342dp"
+                    android:orientation="vertical"
+                    app:layout_collapseMode="pin"
+                    app:layout_collapseParallaxMultiplier="0.7">
+
+                    <ImageView
+                        android:id="@+id/top_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/avatar_photo"
+                        android:scaleType="centerCrop" />
+
+                </LinearLayout>
+                <include
+                    android:id="@+id/include3"
+                    layout="@layout/layout_uc_head_middle"/>
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/user_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/actionBarSize"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                    <com.example.wzp109761.addressbook.widget.CircleImageView
+
+                        android:id="@+id/toolbar_userhead"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/avatar_photo" />
+                    <TextView
+                        android:id="@+id/toolbar_username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:paddingLeft="5dp"
+                        android:text="Lover's Day"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <com.example.wzp109761.addressbook.widget.CircleImageView
+            android:id="@+id/user_head"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/avatar_photo"
+            app:civ_border_color="@android:color/white"
+            app:civ_border_width="2dp"
+            app:elevation="0dp"
+            app:layout_anchor="@+id/include3"
+            app:layout_anchorGravity="left|top"
+            app:layout_behavior="@string/appbar_circleimageview_behavior"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</LinearLayout>
+
