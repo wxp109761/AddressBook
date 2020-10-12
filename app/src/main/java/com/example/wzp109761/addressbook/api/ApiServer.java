@@ -2,9 +2,11 @@ package com.example.wzp109761.addressbook.api;
 
 import com.example.wzp109761.addressbook.bean.BaseBean;
 import com.example.wzp109761.addressbook.bean.TestBean;
+import com.example.wzp109761.addressbook.bean.User;
 import com.example.wzp109761.addressbook.common.UrlConstainer;
 import com.google.gson.JsonObject;
 import io.reactivex.Observable;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 
 import retrofit2.http.GET;
@@ -24,5 +26,12 @@ public interface ApiServer {
     @Headers("Content-Type:application/json")
     @GET(UrlConstainer.TEST)
     Observable<BaseBean<TestBean>> getData();
-
+    /**
+     * 登录
+     * @param body
+     * @return
+     */
+    @Headers("Content-Type:application/json")
+    @POST(UrlConstainer.LOGIN)
+    Observable<BaseBean<User>> login(@Body RequestBody body);
 }

@@ -5,10 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
->
-
-
+        android:fitsSystemWindows="true">
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -30,7 +27,6 @@
                     android:divider="@drawable/divider"
                     android:showDividers="middle"
                     android:layout_margin="@dimen/card_view_spacing">
-
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -50,14 +46,14 @@
                                     android:layout_height="wrap_content"
                                     android:textSize="12sp"
                                     android:textColor="#000000"
-                                    android:text="工号"
+                                    android:text="性别"
                                     android:gravity="center"/>
                             <TextView
                                     android:layout_weight="1"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:id="@+id/job_number"
-                                    android:text="708127"
+                                    android:id="@+id/user_sex"
+                                    android:text="男"
                                     android:textColor="#000000"
                                     android:gravity="center"/>
                         </LinearLayout>
@@ -71,16 +67,17 @@
                                     android:layout_weight="1"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:id="@+id/depart_name"
+
                                     android:textSize="12sp"
                                     android:textColor="#000000"
-                                    android:text="学院"
+                                    android:text="生日"
                                     android:gravity="center"/>
                             <TextView
+                                    android:id="@+id/user_birthday"
                                     android:layout_weight="1"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:text="计算机学院"
+                                    android:text="1997.10.10"
                                     android:textColor="#000000"
                                     android:gravity="center"/>
 

@@ -11,19 +11,16 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.example.wzp109761.addressbook.R;
 import com.example.wzp109761.addressbook.application.AppContext;
-import com.example.wzp109761.addressbook.common.CommonUtils;
 import com.example.wzp109761.addressbook.common.Const;
 import com.example.wzp109761.addressbook.ui.addressBook.AddressBookFragment;
 import com.example.wzp109761.addressbook.ui.base.BaseActivity;
 import com.example.wzp109761.addressbook.ui.mine.MineFragment;
 
-import com.example.wzp109761.addressbook.utils.ChangeHeaderUtils;
 import com.example.wzp109761.addressbook.utils.ToastUtils;
 
 import java.util.List;
@@ -46,7 +43,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     protected void initViews() {
-        CommonUtils.getPer(this, MainActivity.this);
+
         btns = new Button[2];
         btns[0] = findViewById(R.id.btn_main);
         btns[1] = findViewById(R.id.btn_system);

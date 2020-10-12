@@ -1,6 +1,8 @@
 package com.example.wzp109761.addressbook.ui.mine;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,7 +14,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.example.wzp109761.addressbook.R;
+import com.example.wzp109761.addressbook.bean.User;
+import com.example.wzp109761.addressbook.utils.CommonUtils;
+import com.example.wzp109761.addressbook.manager.UserInfoManager;
 import com.example.wzp109761.addressbook.ui.adapter.FragmentAdapter;
 import com.example.wzp109761.addressbook.ui.base.BasePresenterFragment;
 import com.example.wzp109761.addressbook.utils.ChangeHeaderUtils;
@@ -28,6 +34,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import jp.wasabeef.glide.transformations.BlurTransformation;
+
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 public class MineFragment extends BasePresenterFragment<MinePresenter> implements MineContract.IMineView {
 
@@ -62,6 +71,7 @@ public class MineFragment extends BasePresenterFragment<MinePresenter> implement
         this.rootView = view;
         ButterKnife.bind(this, rootView);
         initViewPager();
+        setUserDataFromBmob();
     }
 
     @Override
@@ -95,20 +105,21 @@ public class MineFragment extends BasePresenterFragment<MinePresenter> implement
     }
 
 
-//    /**
-//     * 加载用户信息
-//     */
-//    private void setUserDataFromBmob(){
-//        User user=UserInfoManager.getUserInfo();
-//        toolbarUsername.setText(user.getUsername());
-//        nickname.setText(user.getUsername());
-//        autograph.setText(CommonUtils.userRole());
-//        if (user != null) {
-//            MyTask task = new MyTask();
-//            task.execute(user.getAvatarUrl());
-//        }
-//
-//    }
+    /**
+     * 加载用户信息
+     */
+    private void setUserDataFromBmob(){
+        User user= UserInfoManager.getUserInfo();
+
+        if (user != null) {
+            toolbarUsername.setText(user.getName());
+            nickname.setText(user.getNickName());
+            autograph.setText(user.getSignature());
+            MyTask task = new MyTask();
+            task.execute(user.getUrl());
+        }
+
+    }
 
     /**
      * 编辑用户信息和更新头像
@@ -120,7 +131,6 @@ public class MineFragment extends BasePresenterFragment<MinePresenter> implement
         switch (view.getId()) {
             case R.id.user_head:
                 changeHeaderUtils.ChandeHeader(getContext(), getActivity());
-
                 break;
         }
     }
@@ -129,6 +139,28 @@ public class MineFragment extends BasePresenterFragment<MinePresenter> implement
     public void showResult(String msg) {
         Log.d("XXXX", "---" + msg);
     }
+
+
+    class MyTask extends AsyncTask<String, String, Bitmap> {
+        @Override
+        protected Bitmap doInBackground(String... arg0) {
+            // TODO Auto-generated method stub
+            String url=arg0[0];
+            Bitmap bm=CommonUtils.getHttpBitmap(url);
+            return bm;
+        }
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            // TODO Auto-generated method stub
+            toolbarUserhead.setImageBitmap(result);
+            userHead.setImageBitmap(result);
+            Glide.with(getActivity().getApplicationContext())
+                    .load(result)
+                    .apply(bitmapTransform(new BlurTransformation(25, 3)))
+                    .into(topBg);
+        }
+    }
+
 
     ChangeHeaderUtils changeHeaderUtils = new ChangeHeaderUtils();
 

@@ -7,7 +7,7 @@ package com.example.wzp109761.addressbook.net;
 public interface NetConfig {
 
     //请求成功
-    int REQUEST_SUCCESS = 0;
+    int REQUEST_SUCCESS = 200;
     //请求失败
     int REQUEST_ERROR = 20001;
     /**

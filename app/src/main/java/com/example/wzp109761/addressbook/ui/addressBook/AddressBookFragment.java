@@ -23,6 +23,7 @@ public class AddressBookFragment extends BaseAbListFragment<AddressBookPresenter
 
     @Override
     protected void loadDatas() {
+
         mPresenter.postContacts(mPresenter.initContacts(getActivity().getApplicationContext()));
         mPresenter.getContacts(getActivity().getApplicationContext());
          android_id= Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
