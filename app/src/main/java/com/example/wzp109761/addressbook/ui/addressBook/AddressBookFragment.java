@@ -44,6 +44,6 @@ public class AddressBookFragment extends BaseAbListFragment<AddressBookPresenter
 
     @Override
     public void showResult(String msg) {
-        Log.d("-----XXXXXX------",msg);
+        Log.d("-----XXXXXX------",msg+"");
     }
 }

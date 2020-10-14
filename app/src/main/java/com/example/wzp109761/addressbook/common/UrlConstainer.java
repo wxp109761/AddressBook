@@ -18,4 +18,12 @@ public class UrlConstainer {
      */
     public static final String ADDUSER = "user";
 
+    /**
+     * 头像上传
+     */
+    public static final String UPLOADAVATAR="file/upload";
+    /**
+     * 修改用户信息
+     */
+    public static final String MODIFYUSERINFO="user/modifyUser";
 }

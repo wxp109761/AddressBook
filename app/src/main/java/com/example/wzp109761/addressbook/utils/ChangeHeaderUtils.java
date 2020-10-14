@@ -129,8 +129,8 @@ public class ChangeHeaderUtils {
     private static final int OUTPUT_Y = 480;
 
 
-    public void onAtyResult(int requestCode, int resultCode, Intent data, Context context, Activity activity, ImageView imageView){
-
+    public Bitmap onAtyResult(int requestCode, int resultCode, Intent data, Context context, Activity activity){
+        Bitmap bitmap=null;
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 //拍照完成回调
@@ -152,16 +152,14 @@ public class ChangeHeaderUtils {
                     }
                     break;
                 case CODE_RESULT_REQUEST:
-                    final Bitmap bitmap = PhotoUtils.getBitmapFromUri(cropImageUri, context);
+                   bitmap= PhotoUtils.getBitmapFromUri(cropImageUri, context);
                     if (bitmap != null) {
                         System.out.println("GGG"+cropImageUri.getEncodedPath());
-                        /*
-                        设置头像
-                         */
-                        imageView.setImageBitmap(bitmap);
                         break;
                     }}
+
         }
+        return bitmap;
     }
 
 

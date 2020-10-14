@@ -2,6 +2,7 @@ package com.example.wzp109761.addressbook.ui.mine;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.AudioManager;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -64,7 +65,7 @@ public class MineFragment extends BasePresenterFragment<MinePresenter> implement
     @BindView(R.id.view_pager_user)
     ViewPager viewPagerUser;
     private View rootView;
-
+    MyTask task = new MyTask();
 
     @Override
     protected void initViews(View view) {
@@ -81,8 +82,6 @@ public class MineFragment extends BasePresenterFragment<MinePresenter> implement
 
     @Override
     protected MinePresenter createPresenter() {
-
-
         return new MinePresenter();
     }
 
@@ -115,7 +114,7 @@ public class MineFragment extends BasePresenterFragment<MinePresenter> implement
             toolbarUsername.setText(user.getName());
             nickname.setText(user.getNickName());
             autograph.setText(user.getSignature());
-            MyTask task = new MyTask();
+
             task.execute(user.getUrl());
         }
 
@@ -173,7 +172,17 @@ public class MineFragment extends BasePresenterFragment<MinePresenter> implement
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        changeHeaderUtils.onAtyResult(requestCode, resultCode, data, getContext(), getActivity(), userHead);
+        Bitmap bitmap=changeHeaderUtils.onAtyResult(requestCode, resultCode, data, getContext(), getActivity());
+        if(bitmap!=null){
+            userHead.setImageBitmap(bitmap);
+            toolbarUserhead.setImageBitmap(bitmap);
+            Glide.with(getActivity().getApplicationContext())
+                    .load(bitmap)
+                    .apply(bitmapTransform(new BlurTransformation(25, 3)))
+                    .into(topBg);
+            mPresenter.uploadAvatar(bitmap);
+//            task.execute(user.getUrl());
+        }
     }
 
 }
