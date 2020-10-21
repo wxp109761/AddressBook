@@ -14,10 +14,12 @@ import okhttp3.RequestBody;
 import retrofit2.http.Body;
 
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 
 /**
@@ -43,13 +45,13 @@ public interface ApiServer {
 
     /**
      * 上传头像
-     * @param parts
+     * @param file
      * @return
      */
 
     @POST(UrlConstainer.UPLOADAVATAR)
     @Multipart
-    Observable<BaseBean<String>> uploadAvatar(@Part MultipartBody.Part parts);
+    Observable<BaseBean<String>> uploadAvatar(@Part MultipartBody.Part file);
     /**
      * 登录
      * @param body
@@ -58,5 +60,11 @@ public interface ApiServer {
     @Headers("Content-Type:application/json")
     @POST(UrlConstainer.MODIFYUSERINFO)
     Observable<BaseBean<Object>> modifyUserInfo(@Body RequestBody body);
-
+    /**
+     * 发送验证码
+     * @return
+     */
+    @Headers({"Content-Type:application/json"})
+    @GET(UrlConstainer.SENDCHECKCODE)
+    Observable<BaseBean<Object>> sendCheckCode(@Header("Cookie") String phone);
 }

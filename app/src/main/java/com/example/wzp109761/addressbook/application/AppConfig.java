@@ -19,6 +19,7 @@ public class AppConfig {
         RxRetrofit.getInstance().initRxRetrofit(context, UrlConstainer.baseUrl);
         //初始化缓存
         new PreUtils(context);
+
     }
 
 }

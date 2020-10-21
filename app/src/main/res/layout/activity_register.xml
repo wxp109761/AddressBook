@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="180dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_register_title"
+            android:layout_width="match_parent"
+            android:text="欢迎使用小张通讯录"
+            android:textColor="@color/black_semi"
+            android:layout_marginLeft="20dp"
+            android:textSize="28sp"
+            android:layout_height="wrap_content">
+        </TextView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_margin="20dp"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="+86"
+                android:drawableRight="@drawable/ic_arrow_right"
+                />
+            <EditText
+                android:id="@+id/et_register_phone"
+                android:layout_width="360dp"
+                android:layout_height="match_parent"
+                android:maxLength="13"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_register_tips"
+            android:layout_width="match_parent"
+            android:text="未注册的手机号验证后自动创建账户"
+            android:textSize="14sp"
+            android:layout_marginLeft="20dp"
+            android:layout_height="wrap_content">
+        </TextView>
+        <Button
+            android:id="@+id/btn_get_check_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_get_code2"
+            android:layout_margin="20dp"
+            android:enabled="false"
+            android:text="获取短信验证码"
+            android:textSize="16sp"
+            android:textColor="@color/black_semi"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -26,4 +26,8 @@ public class UrlConstainer {
      * 修改用户信息
      */
     public static final String MODIFYUSERINFO="user/modifyUser";
+    /**
+     * 发送验证码
+     */
+    public static final String SENDCHECKCODE="user/sendMessageCode";
 }

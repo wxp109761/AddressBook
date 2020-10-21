@@ -58,6 +58,13 @@ public class LoginModel extends BaseModel implements ILoginModel {
 //                .subscribe(callback);
     }
 
+    @Override
+    public void sendCheckCode(String phone, RxObserver<Object> callback) {
+        doRxRequest()
+                .sendCheckCode(phone)
+                .compose(RxSchedulers.<Object>io_main())
+                .subscribe(callback);
+    }
 
 
     /**

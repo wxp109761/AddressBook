@@ -12,9 +12,10 @@ import java.math.BigInteger;
 
 public interface LoginContract {
 
-    interface IUserPresenter {
+    interface ILoginPresenter {
         void login(BigInteger phone, String password);
         void register();
+        void sendCheckCode(String phone);
 
     }
 

@@ -3,6 +3,7 @@ package com.example.wzp109761.addressbook.ui.main;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -43,7 +44,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     protected void initViews() {
-
         btns = new Button[2];
         btns[0] = findViewById(R.id.btn_main);
         btns[1] = findViewById(R.id.btn_system);

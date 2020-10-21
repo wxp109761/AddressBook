@@ -20,8 +20,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -29,12 +29,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.wzp109761.addressbook.R;
-import com.example.wzp109761.addressbook.utils.CommonUtils;
 import com.example.wzp109761.addressbook.ui.base.BasePresenterActivity;
 import com.example.wzp109761.addressbook.ui.core.view.IView;
 import com.example.wzp109761.addressbook.ui.main.MainActivity;
+import com.example.wzp109761.addressbook.utils.CommonUtils;
 import com.example.wzp109761.addressbook.utils.NetWorkUtils;
 import com.example.wzp109761.addressbook.widget.Interpolator;
+import com.flyco.dialog.listener.OnOperItemClickL;
+import com.flyco.dialog.widget.ActionSheetDialog;
 
 import java.math.BigInteger;
 
@@ -42,7 +44,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import es.dmoral.toasty.Toasty;
-
+import top.wefor.circularanim.CircularAnim;
 
 /**
  * 登录、注册
@@ -60,14 +62,12 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
     LinearLayout inputLayoutPsw;
     @BindView(R.id.progressBar2)
     ProgressBar progressBar2;
-    @BindView(R.id.login_remember)
-    CheckBox loginRemember;
-    @BindView(R.id.layout_check)
-    LinearLayout layoutCheck;
     @BindView(R.id.btn_login)
     Button mBtnLogin;
-    @BindView(R.id.btn_register)
-    Button mBtnRegister;
+    @BindView(R.id.btn_forget_pass)
+    Button btnForgetPass;
+    @BindView(R.id.btn_registry)
+    Button btnRegistry;
     private EditText et_job_number, et_password;
     private SharedPreferences.Editor editor;
     private SharedPreferences login_sp;
@@ -82,14 +82,13 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
         mInputLayout = findViewById(R.id.login_input_layout);
         progress = findViewById(R.id.login_layout_progress);
         login_sp = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean isRemenber = login_sp.getBoolean("remember_password", false);
+        boolean isRemenber = login_sp.getBoolean("remember_password", true);
         if (isRemenber) {
             //将账号和密码都设置到文本中
             String account = login_sp.getString("account", "");
             String password = login_sp.getString("password", "");
             inputLoginName.setText(account);
             inputLoginPwd.setText(password);
-            loginRemember.setChecked(true);
 
         }
         mBtnLogin.setOnClickListener(new animationOnClickListener(this, mBtnLogin));
@@ -101,19 +100,19 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
     public void showResult(String msg) {
         final String username = inputLoginName.getText().toString();
         final String password = inputLoginPwd.getText().toString();
-        Log.d("------ccc---",msg);
+        Log.d("------ccc---", msg);
         if (msg.equals("登录成功!")) {
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
             //记住密码
             editor = login_sp.edit();
-            if (loginRemember.isChecked()) {
-                editor.putBoolean("remember_password", true);
-                editor.putString("account", username);
-                editor.putString("password", password);
-            } else {
-                editor.clear();
-            }
+//            if (loginRemember.isChecked()) {
+            editor.putBoolean("remember_password", true);
+            editor.putString("account", username);
+            editor.putString("password", password);
+//            } else {
+//                editor.clear();
+//            }
             editor.apply();
             finish();
         } else {
@@ -135,29 +134,62 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
 
     @Override
     protected void onCreate(Bundle bundle) {
-        setStatusBar();
+        CommonUtils.setStatusBar(this);
         super.onCreate(bundle);
     }
 
-    private void setStatusBar() {
-        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-            window.setNavigationBarColor(Color.TRANSPARENT);
+
+
+    @OnClick({R.id.btn_forget_pass, R.id.btn_registry})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_forget_pass:
+                forgetPassWord();
+                break;
+            case R.id.btn_registry:
+                UserRegistry();
+                break;
         }
     }
 
-    @OnClick(R.id.btn_register)
-    public void onViewClicked() {
-        Toasty.error(LoginActivity.this,"注册界面建设中").show();
+
+
+    private void forgetPassWord() {
+        String stringItems[] = {"个人信息验证", "手机验证码登录"};
+        final ActionSheetDialog dialog = new ActionSheetDialog(this, stringItems, null);
+        dialog.isTitleShow(false).show();
+        dialog.itemTextColor(Color.parseColor("#0091ea"));
+        dialog.cancelText(Color.parseColor("#0091ea"));
+        // dialog.itemPressColor(Color.parseColor("#e9857d"));
+        dialog.setOnOperItemClickL(new OnOperItemClickL() {
+            @Override
+            public void onOperItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+
+                        break;
+                    case 1:
+                        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                        intent.putExtra("cate","login");
+                        startActivity(intent);
+                        break;
+                }
+                dialog.dismiss();
+            }
+        });
     }
+    private void UserRegistry() {
+        CircularAnim.fullActivity(this,btnRegistry)
+                .go(new CircularAnim.OnAnimationEndListener() {
+                    @Override
+                    public void onAnimationEnd() {
+                        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                        intent.putExtra("cate","register");
+                        startActivity(intent);
+                    }
+                });
+    }
+
 
     class animationOnClickListener implements View.OnClickListener {
         private Context context;
@@ -245,7 +277,6 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
             if (btnLogin.getVisibility() == View.VISIBLE) {
 
                 btnLogin.setVisibility(View.GONE);
-                mBtnRegister.setVisibility(View.GONE);
 
                 // 计算出控件的高与宽
                 mWidth = btnLogin.getMeasuredWidth();
@@ -259,7 +290,7 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        final String username =inputLoginName.getText().toString();
+                        final String username = inputLoginName.getText().toString();
                         final String password = inputLoginPwd.getText().toString();
 
                         if (NetWorkUtils.isNetworkConnected(getApplication())) {
@@ -292,7 +323,6 @@ public class LoginActivity extends BasePresenterActivity<LoginPresenter> impleme
 
         progress.setVisibility(View.GONE);
         mBtnLogin.setVisibility(View.VISIBLE);
-        mBtnRegister.setVisibility(View.VISIBLE);
         mInputLayout.setVisibility(View.VISIBLE);
         inputLayoutName.setVisibility(View.VISIBLE);
         inputLayoutPsw.setVisibility(View.VISIBLE);

@@ -29,6 +29,14 @@ public interface ILoginModel {
      */
     void register(String username, String password, RxObserver<String> callback);
 
+    /**
+     * 发送验证码
+     * @param phone
+     * @param callback
+     */
+    void sendCheckCode(String phone,RxObserver<Object> callback);
+
+
 
 
     /**

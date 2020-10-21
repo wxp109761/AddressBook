@@ -1,5 +1,6 @@
 package com.example.wzp109761.addressbook.ui.mine;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.example.wzp109761.addressbook.bean.User;
 import com.example.wzp109761.addressbook.manager.UserInfoManager;
@@ -7,6 +8,8 @@ import com.example.wzp109761.addressbook.net.callback.RxObserver;
 import com.example.wzp109761.addressbook.ui.core.model.impl.CommonModel;
 import com.example.wzp109761.addressbook.ui.core.model.impl.UserModel;
 import com.example.wzp109761.addressbook.ui.core.presenter.BasePresenter;
+
+import java.time.LocalDate;
 
 public class MinePresenter extends BasePresenter<MineContract.IMineView> implements MineContract.IMinePresenter  {
     private MineContract.IMineView iMineViewView;
@@ -26,6 +29,7 @@ public class MinePresenter extends BasePresenter<MineContract.IMineView> impleme
         RxObserver<String> observer=new RxObserver<String>(this) {
             @Override
             protected void onSuccess(String data) {
+                Log.d("----zzz---",data);
                 User user=UserInfoManager.getUserInfo();
                 if(user!=null){
                     user.setUrl(data);

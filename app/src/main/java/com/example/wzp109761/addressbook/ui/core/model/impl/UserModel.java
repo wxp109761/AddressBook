@@ -1,6 +1,7 @@
 package com.example.wzp109761.addressbook.ui.core.model.impl;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.example.wzp109761.addressbook.application.AppContext;
 import com.example.wzp109761.addressbook.bean.User;
@@ -9,6 +10,7 @@ import com.example.wzp109761.addressbook.net.callback.RxObserver;
 import com.example.wzp109761.addressbook.ui.core.model.IUserModel;
 import com.example.wzp109761.addressbook.utils.CommonUtils;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.io.File;
 
@@ -21,11 +23,8 @@ public class UserModel extends BaseModel implements IUserModel {
     @Override
     public void uploadAvatar(Bitmap bitmap, RxObserver<String> callback) {
         File file = CommonUtils.compressImage(bitmap);
-
-        String[] bitmap1= AppContext.getContext().getResources().getAssets().getLocales();
-
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part filePart = MultipartBody.Part.createFormData("headimg", file.getName(), requestFile);
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
         doRxRequest()
                 .uploadAvatar(filePart)
                 .compose(RxSchedulers.<String>io_main())
